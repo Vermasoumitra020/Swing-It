@@ -1,0 +1,86 @@
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href = "{% static 'css/navbar_style.css' %}" rel = "stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+</head>
+
+{% for items in all_items %}
+<body background="{{ items.background.url }}" style="background-size:cover; background-repeat: no-repeat;  -webkit-background-size: cover; background-position: center;" >
+{% include 'navbar.html' %}
+<div class = 'container'>
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+        {% if request.user.is_authenticated %}
+
+    {% for instance in all_items %}
+
+      <img src='{{ instance.profile_pic.url }}' alt="...">
+      <div class="caption">
+        <h3>{{ request.user }}</h3>
+        <p>{{ instance.fullname }}</p>
+      <p>{{ instance.email }}</p>
+      <p>{{ instance.bday }}</p>
+          <p><a href="{% url 'update' user.id %}"><button class = 'btn btn-primary btn-sm glyphicon glyphicon-pencil '>&nbsp;Edit</button></a></p>
+
+      </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+  </div>
+<div class="col-sm-6 col-md-8">
+
+<form method = "POST" action = ""  enctype='multipart/form-data'>{% csrf_token %}
+                {{ form|crispy }}
+                <input type = 'submit' class = "btn btn-primary pull-right" value="Post" />
+
+
+</form>
+<br>
+<hr>
+
+    {% for item in status_items %}
+    <div class="jumbotron">
+        {% for instance in all_items %}
+
+            <h3>
+
+                <a href="{% url 'delete' item.id %}"><button type="submit" class = "btn btn-danger btn-sm pull-right">
+                 <span class = "glyphicon glyphicon-trash ">&nbsp;Delete</span>
+                </button></a></h3>
+            <table>
+            <tr><td rowspan="2"><img style="max-width:100px; margin-top: -7px;width:37px; vertical-align: middle"
+                                     src="{{ instance.profile_pic.url }}"></td>
+                <td><b style="font-size: larger">&nbsp;&nbsp;{{ instance.fullname }}</b></td></tr>
+                <tr><td>&nbsp;&nbsp;<small style="font-size: smaller">{{ instance.update }}</small></td></tr>
+            </table>
+
+            {% endfor %}
+
+            <hr>
+
+        <h4>{{ item.status }}</h4>
+
+
+</div>
+        {% endfor %}
+
+</div>
+
+
+</div>
+</div>
+</body>
+{% endfor %}

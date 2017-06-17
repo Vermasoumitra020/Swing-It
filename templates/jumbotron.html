@@ -1,0 +1,23 @@
+{% load staticfiles %}
+
+<head>
+    <script src = {% static "javascript/lang_change.js" %}> </script>
+</head>
+<body onload="changeText()">
+<div class="jumbotron">
+    <div class = "container">
+        <div class = "row">
+            <div class = 'col-xs-6'>
+                <h1 id="textslide"></h1>
+                <h1><small> {{ request.user }}</small></h1>
+                <p>The best ice breaker activities are the ones where everyone gets to share little facts about their lives.</p>
+
+              <p><a class="btn btn-primary btn-lg" href="{% url 'registration_register' %}" role="button">Join Us</a></p>
+            </div>
+            <div class = "col-xs-6">
+                <img src = '{% static 'img/thumb-1920-403172.png' %}' class = "img-responsive"style = "width: 390px; height: 300px; border-radius: 10px;">
+            </div>
+        </div>
+    </div>
+</div>
+</body>

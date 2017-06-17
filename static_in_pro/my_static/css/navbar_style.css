@@ -1,0 +1,31 @@
+.navbar{
+    background: #30A294;
+    color: white;
+    border-radius: 0px;
+    border-color: #30A294;
+}
+
+.navbar-default .navbar-brand{
+    font-family: Monoton;
+    font-size: 30px;
+    color: white;
+}
+
+  .navbar-default .navbar-nav > li >a {
+   color: white;
+    }
+
+  .navbar-default .navbar-header > button >span
+  {
+      color : white;
+  }
+
+  body{
+      min-height: 990px;
+  }
+
+  .jumbotron{
+
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+     }
